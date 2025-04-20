@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
-    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><rect width=%2216%22 height=%2216%22 fill=%22%23ffffff%22 stroke=%22%23000000%22 stroke-width=%221%22/><rect x=%223%22 y=%223%22 width=%224%22 height=%224%22 fill=%22%23000000%22/><rect x=%229%22 y=%223%22 width=%224%22 height=%224%22 fill=%22%23000000%22/><rect x=%223%22 y=%229%22 width=%2210%22 height=%223%22 fill=%22%23000000%22/></svg>" type="image/svg+xml">
     <style>
         @font-face {
@@ -61,7 +60,6 @@
             }
         }
         
-        /* Grid pattern background */
         .grid-pattern {
             position: absolute;
             top: 0;
@@ -160,7 +158,6 @@
             text-shadow: 1px 1px 0px #000;
         }
         
-        /* Minecraft block style */
         .mc-block {
             position: absolute;
             width: 48px;
@@ -170,7 +167,6 @@
             box-shadow: inset -8px -8px 0 rgba(0,0,0,0.3), inset 8px 8px 0 rgba(255,255,255,0.5);
         }
         
-        /* Music Player Styles */
         .music-player {
             margin-top: 1.5rem;
             padding: 1rem;
@@ -317,13 +313,11 @@
             Hi! I'm Ray. I've been playing Minecraft since 2014 and picked up anarchy in 2019. I started playing 2b2t in 2021. I picked up 3 coding languages along the way, and i'm currently learning another. I also own a 2b2t Shop called <a href="https://discord.gg/redbed">Red Bed Shop.</a> Come check it out! If you see me online, I'm most like dicking around at spawn or stash hunting.
         </p>
         
-        <!-- Audio Element -->
         <audio id="song" preload="metadata">
             <source src="audio/3am.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
         
-        <!-- Music Player -->
         <div class="music-player">
             <div class="music-info">
                 <div class="album-art">
@@ -369,7 +363,6 @@
     </div>
 
     <script>
-        // Create more noticeable animated background
         const animatedBg = document.getElementById('animated-bg');
         const numberOfBlocks = 20;
         
@@ -377,30 +370,25 @@
             const block = document.createElement('div');
             block.classList.add('mc-block');
             
-            // Random position starting outside the viewport
             const startPosition = Math.random() * 4;
             let startX, startY, endX, endY;
             
             if (startPosition < 1) {
-                // Start from left
                 startX = -100;
                 startY = Math.random() * window.innerHeight;
                 endX = window.innerWidth + 100;
                 endY = Math.random() * window.innerHeight;
             } else if (startPosition < 2) {
-                // Start from top
                 startX = Math.random() * window.innerWidth;
                 startY = -100;
                 endX = Math.random() * window.innerWidth;
                 endY = window.innerHeight + 100;
             } else if (startPosition < 3) { 
-                // Start from right
                 startX = window.innerWidth + 100;
                 startY = Math.random() * window.innerHeight;
                 endX = -100;
                 endY = Math.random() * window.innerHeight;
             } else {
-                // Start from bottom
                 startX = Math.random() * window.innerWidth;
                 startY = window.innerHeight + 100;
                 endX = Math.random() * window.innerWidth;
@@ -410,7 +398,6 @@
             block.style.left = `${startX}px`;
             block.style.top = `${startY}px`;
             
-            // Random block types
             const blockTypes = [
                 {bg: '#ffffff', shadow: 'rgba(0,0,0,0.3)'}, // Stone
                 {bg: '#aaaaaa', shadow: 'rgba(0,0,0,0.3)'}, // Light gray
@@ -422,15 +409,12 @@
             block.style.backgroundColor = blockType.bg;
             block.style.boxShadow = `inset -8px -8px 0 ${blockType.shadow}, inset 8px 8px 0 rgba(255,255,255,0.5)`;
             
-            // Random size
             const size = Math.floor(Math.random() * 40) + 30;
             block.style.width = `${size}px`;
             block.style.height = `${size}px`;
             
-            // Random rotation
             const rotation = Math.random() * 360;
             
-            // Set animation
             const duration = Math.random() * 15 + 10;
             block.style.transition = `transform ${duration}s linear, opacity 2s ease-in-out`;
             
@@ -447,12 +431,10 @@
             animatedBg.appendChild(block);
         }
         
-        // Create initial blocks
         for (let i = 0; i < numberOfBlocks; i++) {
             setTimeout(() => createBlock(), i * 300);
         }
         
-        // Music Player Functionality
         document.addEventListener('DOMContentLoaded', function() {
             const playBtn = document.getElementById('play-btn');
             const playIcon = document.getElementById('play-icon');
@@ -464,20 +446,16 @@
             const volumeLevel = document.getElementById('volume-level');
             const volumeIcon = document.getElementById('volume-icon');
             
-            // Initialize audio volume
             audioElement.volume = 0.7; // 70% volume
             
-            // Initialize the play button with the correct icon
             if (!audioElement.paused) {
                 playIcon.classList.replace('fa-play', 'fa-pause');
             }
             
-            // Toggle play/pause
             playBtn.addEventListener('click', function() {
                 if (audioElement.paused) {
                     audioElement.play().catch(error => {
                         console.error("Error playing audio:", error);
-                        // Handle autoplay policy errors
                         alert("Couldn't play audio automatically. Please interact with the page first.");
                     });
                 } else {
@@ -485,7 +463,6 @@
                 }
             });
             
-            // Listen for play event to update button
             audioElement.addEventListener('play', function() {
                 playIcon.classList.replace('fa-play', 'fa-pause');
             });
@@ -495,21 +472,17 @@
                 playIcon.classList.replace('fa-pause', 'fa-play');
             });
             
-            // Update progress bar as song plays with smoother animation
             audioElement.addEventListener('timeupdate', function() {
                 const currentTime = audioElement.currentTime;
                 const duration = audioElement.duration || 1; // Prevent division by zero
                 const progressPercentage = (currentTime / duration) * 100;
                 
-                // Use requestAnimationFrame for smoother updates
                 requestAnimationFrame(() => {
                     progressBar.style.width = `${progressPercentage}%`;
-                    // Update time display
                     updateTimeDisplay(currentTime, duration);
                 });
             });
             
-            // For smoother progress bar scrubbing
             let isProgressDragging = false;
             
             progressElement.addEventListener('mousedown', function(e) {
@@ -534,24 +507,19 @@
                 const seekPercentage = Math.max(0, Math.min(1, clickX / progressWidth));
                 const seekTime = seekPercentage * audioElement.duration;
                 
-                // Update visual progress bar immediately for smoother appearance
                 progressBar.style.width = `${seekPercentage * 100}%`;
                 
-                // Only update audio time on mouseup or direct clicks
                 if (!e.type || e.type === 'mousedown' || e.type === 'click') {
                     audioElement.currentTime = seekTime;
                 }
                 
-                // Update time display immediately
                 updateTimeDisplay(seekTime, audioElement.duration);
             }
             
-            // Click on progress bar to seek
             progressElement.addEventListener('click', function(e) {
                 updateProgressPosition(e);
             });
             
-            // For smoother volume slider
             let isVolumeDragging = false;
             
             volumeSlider.addEventListener('mousedown', function(e) {
@@ -575,18 +543,15 @@
                 const sliderWidth = volumeRect.width;
                 const newVolume = Math.max(0, Math.min(1, clickX / sliderWidth));
                 
-                // Set new volume (between 0 and 1)
                 audioElement.volume = newVolume;
                 volumeLevel.style.width = `${newVolume * 100}%`;
                 updateVolumeIcon(newVolume);
             }
             
-            // Click on volume slider to change volume
             volumeSlider.addEventListener('click', function(e) {
                 updateVolumePosition(e);
             });
             
-            // Update volume icon based on volume level
             function updateVolumeIcon(volume) {
                 volumeIcon.className = '';
                 if (volume === 0) {
@@ -598,7 +563,6 @@
                 }
             }
             
-            // Mute/unmute when clicking the volume icon
             volumeIcon.addEventListener('click', function() {
                 if (audioElement.muted) {
                     audioElement.muted = false;
@@ -611,14 +575,12 @@
                 }
             });
             
-            // When song ends
             audioElement.addEventListener('ended', function() {
                 progressBar.style.width = '0%';
                 audioElement.currentTime = 0;
                 playIcon.classList.replace('fa-pause', 'fa-play');
             });
             
-            // Format time display
             function updateTimeDisplay(current, total) {
                 const currentMin = Math.floor(current / 60);
                 const currentSec = Math.floor(current % 60);
@@ -628,7 +590,6 @@
                 timeDisplay.textContent = `${currentMin}:${currentSec.toString().padStart(2, '0')} / ${totalMin}:${totalSec.toString().padStart(2, '0')}`;
             }
             
-            // Load metadata to display duration when available
             audioElement.addEventListener('loadedmetadata', function() {
                 const duration = audioElement.duration;
                 const totalMin = Math.floor(duration / 60);
@@ -636,13 +597,11 @@
                 timeDisplay.textContent = `0:00 / ${totalMin}:${totalSec.toString().padStart(2, '0')}`;
             });
             
-            // Handle audio loading errors
             audioElement.addEventListener('error', function(e) {
                 console.error("Error loading audio file:", e);
                 alert("There was an error loading the audio file. Please check that the file exists at assets/3am");
             });
             
-            // For space key to play/pause
             document.addEventListener('keydown', function(e) {
                 if (e.code === 'Space') {
                     e.preventDefault(); // Prevent page scroll
